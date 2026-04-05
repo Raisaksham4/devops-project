@@ -1,73 +1,75 @@
-# 🚀 Full DevOps Automation Platform (AWS)
+🚀 Full DevOps Automation Platform (AWS)
+📌 Overview
 
-## 📌 Overview
+This project implements a fully automated end-to-end DevOps pipeline that provisions infrastructure, builds containerized applications, and deploys them to AWS — all triggered by a single code push.
+The system integrates Infrastructure as Code (Terraform) with CI/CD (GitHub Actions) and containerized deployment (Docker + ECR + EC2) to eliminate manual intervention.
 
-This project demonstrates a complete end-to-end DevOps pipeline that automates application build, containerization, and deployment using AWS and GitHub Actions.
+🧱 Architecture
 
-The pipeline enables seamless integration from code push to live deployment without manual intervention.
+Developer → GitHub → GitHub Actions (CI/CD)
+        ↓
+    Terraform (Infra Provisioning)
+        ↓
+   AWS EC2 + IAM Role
+        ↓
+Docker Build → AWS ECR → EC2 Pull → Container Run
+        ↓
+    Live Application
 
----
+⚙️ Tech Stack
+Cloud: AWS (EC2, ECR, IAM)
+Infrastructure as Code: Terraform
+CI/CD: GitHub Actions
+Containerization: Docker
+Backend: Node.js (Express)
+OS: Linux (Amazon Linux)
 
-## 🧱 Architecture
+🔄 Workflow
+Developer pushes code to GitHub
+GitHub Actions pipeline is triggered
+Terraform provisions:
+EC2 instance
+Security groups
+IAM roles
+Docker image is built
+Image is pushed to AWS ECR
+EC2 instance:
+Pulls latest image
+Stops old container
+Runs updated container
+Application becomes live via EC2 public IP
 
-Code → GitHub → CI/CD Pipeline → Docker → AWS ECR → EC2 → Live Application
+🔐 Security
+IAM roles used for secure AWS access
+GitHub Secrets used for credentials
+No hardcoded secrets
+Secure SSH-based deployment
 
----
+🚀 Key Features
+Fully automated CI/CD pipeline
+Infrastructure provisioning using Terraform
+Zero manual deployment
+Docker-based container deployment
+Secure AWS integration
+Automatic cleanup on pipeline failure
 
-## ⚙️ Tech Stack
+📸 Output
+Application successfully deployed and accessible via:
+http://<EC2-PUBLIC-IP>
 
-* **Cloud**: AWS (EC2, ECR, IAM)
-* **CI/CD**: GitHub Actions
-* **Containerization**: Docker
-* **Backend**: Node.js (Express)
-* **OS**: Linux
+🧠 Key Learnings
+Terraform state management in CI/CD
+IAM roles and instance profiles
+Debugging GitHub Actions pipelines
+SSH-based automated deployments
+End-to-end cloud automation
 
----
+📈 Future Improvements
+Add Load Balancer (ALB)
+Enable HTTPS with custom domain
+Use S3 backend for Terraform state
+Deploy using AWS ECS or Kubernetes
+Multi-user deployment support
 
-## 🔄 Workflow
-
-1. Developer pushes code to GitHub
-2. GitHub Actions triggers CI/CD pipeline
-3. Docker image is built automatically
-4. Image is pushed to AWS ECR
-5. EC2 instance pulls latest image
-6. Container is deployed and updated automatically
-
----
-
-## 🔐 Security
-
-* IAM roles used for secure access to AWS services
-* Secrets managed using GitHub Secrets
-* No hardcoded credentials
-
----
-
-## 🚀 Features
-
-* Fully automated CI/CD pipeline
-* Zero manual deployment
-* Docker-based containerization
-* Secure AWS integration
-* Real-time deployment on EC2
-
----
-
-## 📸 Output
-
-Application successfully deployed and accessible via public IP.
-
----
-
-## 📈 Future Improvements
-
-* Add Load Balancer (ALB)
-* Implement HTTPS with custom domain
-* Use Terraform for Infrastructure as Code
-* Deploy using AWS ECS for scalability
-
----
-
-## 👨‍💻 Author
-
+👨‍💻 Author
 Saksham Rai
