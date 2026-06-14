@@ -2,72 +2,94 @@
 
 ## 📌 Overview
 
-This project demonstrates a complete end-to-end DevOps pipeline that automates application build, containerization, and deployment using AWS and GitHub Actions.
+This project implements a fully automated end-to-end DevOps pipeline that provisions infrastructure, builds containerized applications, and deploys them to AWS using GitHub Actions and Terraform.
 
-The pipeline enables seamless integration from code push to live deployment without manual intervention.
+The platform automates the complete deployment lifecycle—from infrastructure creation to application deployment—enabling seamless delivery with minimal manual intervention.
 
 ---
 
 ## 🧱 Architecture
 
-Code → GitHub → CI/CD Pipeline → Docker → AWS ECR → EC2 → Live Application
+```text
+Code → GitHub → GitHub Actions → Terraform
+                                  ↓
+                          AWS EC2 + IAM
+                                  ↓
+Docker Build → AWS ECR → EC2 Deployment
+                                  ↓
+                         Live Application
+```
 
 ---
 
 ## ⚙️ Tech Stack
 
-* **Cloud**: AWS (EC2, ECR, IAM)
-* **CI/CD**: GitHub Actions
-* **Containerization**: Docker
-* **Backend**: Node.js (Express)
-* **OS**: Linux
+* **Cloud:** AWS (EC2, ECR, IAM)
+* **Infrastructure as Code:** Terraform
+* **CI/CD:** GitHub Actions
+* **Containerization:** Docker
+* **Backend:** Node.js (Express)
+* **OS:** Linux (Amazon Linux)
 
 ---
 
 ## 🔄 Workflow
 
 1. Developer pushes code to GitHub
-2. GitHub Actions triggers CI/CD pipeline
-3. Docker image is built automatically
-4. Image is pushed to AWS ECR
-5. EC2 instance pulls latest image
-6. Container is deployed and updated automatically
+2. GitHub Actions pipeline is triggered automatically
+3. Terraform provisions AWS infrastructure:
+   - EC2 Instance
+   - Security Groups
+   - IAM Roles & Instance Profiles
+4. Docker image is built automatically
+5. Image is pushed to AWS ECR
+6. EC2 instance authenticates with ECR using IAM roles
+7. Latest container image is pulled and deployed
+8. Application becomes accessible through the EC2 public IP
 
 ---
 
 ## 🔐 Security
 
-* IAM roles used for secure access to AWS services
+* IAM role-based authentication for AWS services
 * Secrets managed using GitHub Secrets
-* No hardcoded credentials
+* No hardcoded AWS credentials
+* Secure SSH-based deployment
+* Principle of least privilege for infrastructure access
 
 ---
 
 ## 🚀 Features
 
 * Fully automated CI/CD pipeline
-* Zero manual deployment
+* Infrastructure provisioning using Terraform
 * Docker-based containerization
-* Secure AWS integration
-* Real-time deployment on EC2
+* Dynamic EC2 deployment
+* AWS ECR integration
+* IAM role-based authentication
+* Automated application updates on every code push
+* Infrastructure cleanup on deployment failures
 
 ---
 
 ## 📸 Output
 
-Application successfully deployed and accessible via public IP.
+Application successfully deployed and accessible through the public IP of the provisioned EC2 instance.
 
 ---
 
 ## 📈 Future Improvements
 
-* Add Load Balancer (ALB)
-* Implement HTTPS with custom domain
-* Use Terraform for Infrastructure as Code
-* Deploy using AWS ECS for scalability
+* Remote Terraform State (S3 + DynamoDB)
+* Manual infrastructure destroy workflow
+* Application Load Balancer (ALB)
+* HTTPS with custom domain (Route53 + ACM)
+* Blue-Green Deployments
+* Kubernetes (EKS) integration
+* Multi-user deployment platform with dynamic repository support
 
 ---
 
 ## 👨‍💻 Author
 
-Saksham Rai
+**Saksham Rai**
